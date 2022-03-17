@@ -13,6 +13,7 @@ export default function DownloadButton() {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    marginTop: 12
   },
   icon: {
     marginEnd: 4

@@ -1,25 +1,9 @@
-import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
-import DownloadButton from './DownloadButton';
-import ListItem from './ListItem';
-import SyncButton from './SyncButton';
+import { StyleSheet, View } from 'react-native';
 
-export default function List({ items }) {
+export default function List({ children }) {
   return (
     <View style={styles.container}>
-      <ListItem
-        title="My program"
-        subtitle="9 subjects" 
-        action={<SyncButton />}
-      />
-      <ListItem
-        title="My program 2" 
-        subtitle="8 subjects" 
-        action={<DownloadButton />}
-      />
-      <ListItem
-        title="My program"
-        subtitle="9 subjects"
-      />
+      {children}
     </View>
   )   
 }
@@ -28,7 +12,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 100,
     width: '100%',
-    // justifyContent: 'center',
-    // alignItems: 'center',
   },
 });
