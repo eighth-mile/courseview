@@ -1,10 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+
 import Loading from '../components/Loading';
 import List from '../components/List';
 import ListItem from '../components/ListItem';
 import DownloadButton from '../components/DownloadButton';
 import SyncButton from '../components/SyncButton';
+import { get, set } from '../utils/database';
 
 
 const DOCUMENTS_URL = "https://raw.githubusercontent.com/eighth-mile/syllabus-repo/main/documents.json";
@@ -24,6 +26,7 @@ export default function ProgramSelector() {
     try {
       const result = await getProgramsFromApi();
       setPrograms(result);
+      await set('programs', result);
     } catch (e) {
       setError(true);
     } finally {
@@ -39,7 +42,7 @@ export default function ProgramSelector() {
       {error ?
         <Text style={styles.error}>Error occurred while fetching documents!</Text> :
         <List>
-          {programs.map(program => (
+          {programs.map((program, index) => (
             <ListItem
               key={program.title}
               title={program.title}
