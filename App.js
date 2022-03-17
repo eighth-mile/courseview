@@ -10,6 +10,7 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <SubjectSyllabus />
+      <StatusBar style="auto" />
     </SafeAreaView>
   );
 }
