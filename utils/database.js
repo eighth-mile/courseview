@@ -13,6 +13,10 @@ export async function get(key) {
   }
 }
 
+export async function remove(key) {
+  await AsyncStorage.removeItem(key);
+}
+
 export async function isProgramDownloaded(title) {
   const offlinePrograms = await getAllOfflinePrograms();
   return title in offlinePrograms;
@@ -38,4 +42,10 @@ export async function getProgram(title) {
 
 export async function getSubjectSyllabus(path) {
   return await get(path);
+}
+
+export async function deleteProgram(title) {
+  const offlinePrograms = await getAllOfflinePrograms();
+  delete offlinePrograms[title]
+  await setOfflinePrograms(offlinePrograms);
 }

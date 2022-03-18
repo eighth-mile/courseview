@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
+import DeleteButton from '../components/DeleteButton';
 
 import HomeEmptyView from '../components/HomeEmptyView';
 import List from '../components/List';
 import ListItem from '../components/ListItem';
 import Loading from '../components/Loading';
-import { getAllOfflinePrograms } from '../utils/database';
+import { deleteProgram, getAllOfflinePrograms } from '../utils/database';
 
 
 function navigateToProgramSelector(navigation) {
@@ -35,6 +36,22 @@ export default function HomeView({ navigation }) {
     return unsubscribe;
   }, [navigation]);
 
+  async function showDeleteDialog(title) {
+    Alert.alert(
+      'Delete program from device', 
+      `Are you sure you want to delete subject - ${title}?`, 
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'OK', onPress: () => deleteProgramFromDevice(title) },
+      ]
+    );
+  }
+
+  async function deleteProgramFromDevice(title) {
+    await deleteProgram(title);
+    await loadOfflinePrograms();
+  }
+
   if (loading) {
     return <Loading />;
   } else if (offlinePrograms.length === 0) {
@@ -50,6 +67,11 @@ export default function HomeView({ navigation }) {
             title={program.title}
             subtitle={`${program.subjects.length} subjects`}
             onPress={() => navigateToProgram(navigation, program.title)}
+            action={
+              <DeleteButton
+                onPress={() => showDeleteDialog(program.title)} 
+              />
+            }
           />
         ))}
       </List>

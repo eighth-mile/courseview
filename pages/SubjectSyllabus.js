@@ -22,6 +22,18 @@ export default function SubjectSyllabus({ route }) {
     return <Loading />
   }
 
+  function handleWebViewRequest(request) {
+    const { url } = request;
+    if (!url) return false;
+
+    if (url !== "about:blank") {
+      Linking.openURL(url);
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   return (
     <View style={styles.container}>
       <WebView
@@ -31,12 +43,7 @@ export default function SubjectSyllabus({ route }) {
         source={{ html }}
         javascriptEnabled={true}
         scrollEnabled={true}
-        onNavigationStateChange={async (event) => {
-          if (event.url !== "about:blank") {
-            this.webview.stopLoading();
-            await Linking.openURL(event.url);
-          }
-        }}
+        onShouldStartLoadWithRequest={handleWebViewRequest}
       />
     </View>
   )
