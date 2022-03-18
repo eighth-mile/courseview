@@ -27,8 +27,9 @@ export default function ProgramSelector() {
   const downloadProgram = async (index) => {
     try {
       setLoading(true);
-      const results = await downloadProgramFromRepo(index);
-
+      await downloadProgramFromRepo(index);
+      const result = await getProgramsFromRepo();
+      setPrograms(result);
     } catch (e) {
       Alert.alert(
         "Error downloading the program",

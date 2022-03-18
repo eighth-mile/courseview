@@ -2,14 +2,14 @@ import { AntDesign } from '@expo/vector-icons';
 import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 
 
-export default function HomeEmptyView() {
+export default function HomeEmptyView({ onPress }) {
   return (
     <View style={styles.container}>
       <AntDesign name="addfile" size={96} color="#CBCBCB" />
       <Text style={styles.text}>
         Consider adding programs from our repository
       </Text>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={onPress}>
         <Text style={styles.buttonText}>ADD COURSE</Text>
       </TouchableOpacity>
     </View>

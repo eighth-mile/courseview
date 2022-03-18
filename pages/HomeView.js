@@ -8,20 +8,33 @@ import Loading from '../components/Loading';
 import { getAllOfflinePrograms } from '../utils/database';
 
 
-export default function HomeView() {
+function navigateToProgramSelector(navigation) {
+  navigation.navigate("ProgramSelector")
+}
+
+export default function HomeView({ navigation }) {
   const [loading, setLoading] = React.useState(true);
   const [offlinePrograms, setOfflinePrograms] = React.useState([]);
 
-  React.useEffect(async () => {
+  async function loadOfflinePrograms() {
+    setLoading(true);
     const programs = await getAllOfflinePrograms();
     setOfflinePrograms(Object.values(programs));
     setLoading(false);
-  }, []);
+  }
+
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', async () => {
+      await loadOfflinePrograms();
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   if (loading) {
     return <Loading />;
   } else if (offlinePrograms.length === 0) {
-    return <HomeEmptyView />;
+    return <HomeEmptyView onPress={() => navigateToProgramSelector(navigation)} />;
   }
 
   return (
@@ -35,7 +48,10 @@ export default function HomeView() {
           />
         ))}
       </List>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button} 
+        onPress={() => navigateToProgramSelector(navigation)}
+      >
         <Text style={styles.buttonText}>ADD COURSE</Text>
       </TouchableOpacity>
     </View>
