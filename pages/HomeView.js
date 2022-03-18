@@ -12,6 +12,10 @@ function navigateToProgramSelector(navigation) {
   navigation.navigate("ProgramSelector")
 }
 
+function navigateToProgram(navigation, programTitle) {
+  navigation.navigate("SubjectListView", { programTitle });
+}
+
 export default function HomeView({ navigation }) {
   const [loading, setLoading] = React.useState(true);
   const [offlinePrograms, setOfflinePrograms] = React.useState([]);
@@ -45,6 +49,7 @@ export default function HomeView({ navigation }) {
             key={program.title}
             title={program.title}
             subtitle={`${program.subjects.length} subjects`}
+            onPress={() => navigateToProgram(navigation, program.title)}
           />
         ))}
       </List>

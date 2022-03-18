@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import HomeEmptyView from './components/HomeEmptyView';
 import List from './components/List';
@@ -10,7 +11,6 @@ import HomeView from './pages/HomeView';
 import ProgramSelector from './pages/ProgramSelector';
 import SubjectListView from './pages/SubjectListView';
 import SubjectSyllabus from './pages/SubjectSyllabus';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +28,11 @@ export default function App() {
             name="ProgramSelector"
             component={ProgramSelector}
             options={{ ...stackOptions, title: "Available programs" }}
+          />
+          <Stack.Screen
+            name="SubjectListView"
+            component={SubjectListView}
+            options={{ ...stackOptions }}
           />
         </Stack.Navigator>
       </NavigationContainer>

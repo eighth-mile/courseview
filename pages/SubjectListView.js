@@ -5,7 +5,8 @@ import ListItem from '../components/ListItem';
 import Loading from '../components/Loading';
 import { getProgram } from '../utils/database';
 
-export default function SubjectListView({ programTitle }) {
+export default function SubjectListView({ route, navigation }) {
+  const programTitle = route.params.programTitle;
   const [loading, setLoading] = React.useState(true);
   const [program, setProgram] = React.useState(null);
 
