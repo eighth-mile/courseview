@@ -35,3 +35,7 @@ export async function getProgram(title) {
   const offlinePrograms = await getAllOfflinePrograms();
   return offlinePrograms[title];
 }
+
+export async function getSubjectSyllabus(path) {
+  return await get(path);
+}

@@ -5,6 +5,10 @@ import ListItem from '../components/ListItem';
 import Loading from '../components/Loading';
 import { getProgram } from '../utils/database';
 
+function navigateToSubjectSyllabus(navigation, path) {
+  navigation.navigate("SubjectSyllabus", { path });
+}
+
 export default function SubjectListView({ route, navigation }) {
   const programTitle = route.params.programTitle;
   const [loading, setLoading] = React.useState(true);
@@ -29,7 +33,7 @@ export default function SubjectListView({ route, navigation }) {
               key={subject.code}
               title={subject.title}
               subtitle={subject.code}
-              onPress={() => console.log("pressed")}
+              onPress={() => navigateToSubjectSyllabus(navigation, subject.path)}
             />
           ))}
         </List>

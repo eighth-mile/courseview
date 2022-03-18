@@ -32,7 +32,12 @@ export default function App() {
           <Stack.Screen
             name="SubjectListView"
             component={SubjectListView}
-            options={{ ...stackOptions }}
+            options={{ ...stackOptions, title: "Subjects" }}
+          />
+          <Stack.Screen
+            name="SubjectSyllabus"
+            component={SubjectSyllabus}
+            options={{ ...stackOptions, title: "Syllabus" }}
           />
         </Stack.Navigator>
       </NavigationContainer>
