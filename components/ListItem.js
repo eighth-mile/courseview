@@ -1,22 +1,22 @@
 import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 
-export default function ListItem({ title, subtitle, link, action, onPress }) {
+export default function ListItem({ title, subtitle, action, onPress }) {
   return (
     <>
-      <View style={styles.container}>
-        <TouchableOpacity style={styles.textContainer} onPress={onPress}>
+      <TouchableOpacity style={styles.container} onPress={onPress}>
+        <View style={styles.textContainer}>
           <Text style={styles.title}>
             {title}
           </Text>
           <Text style={styles.subtitle}>
             {subtitle}
           </Text>
-        </TouchableOpacity>
+        </View>
 
         <View style={styles.actionContainer}>
           {action}
         </View>
-      </View>
+      </TouchableOpacity>
     </>
   )
 }

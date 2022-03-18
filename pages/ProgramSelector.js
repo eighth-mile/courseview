@@ -54,6 +54,7 @@ export default function ProgramSelector() {
               key={program.title}
               title={program.title}
               subtitle={`${program.subjects.length} subjects`}
+              onPress={() => downloadProgram(index)}
               action={
                 program.isDownloaded
                   ? <SyncButton onPress={() => downloadProgram(index)} />
