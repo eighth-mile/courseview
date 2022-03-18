@@ -1,9 +1,9 @@
 import { FontAwesome5 } from '@expo/vector-icons'; 
 import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 
-export default function SyncButton() {
+export default function SyncButton({ onPress }) {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <FontAwesome5 name="sync" size={14} color="black" style={styles.icon} />
       <Text style={styles.text}>Sync</Text>
     </TouchableOpacity>

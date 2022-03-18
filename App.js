@@ -9,7 +9,7 @@ import SubjectSyllabus from './pages/SubjectSyllabus';
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
-      <SubjectSyllabus />
+      <ProgramSelector />
       <StatusBar style="auto" />
     </SafeAreaView>
   );

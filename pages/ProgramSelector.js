@@ -1,21 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Alert } from 'react-native';
 
 import Loading from '../components/Loading';
 import List from '../components/List';
 import ListItem from '../components/ListItem';
 import DownloadButton from '../components/DownloadButton';
 import SyncButton from '../components/SyncButton';
-import { get, set } from '../utils/database';
-
-
-const DOCUMENTS_URL = "https://raw.githubusercontent.com/eighth-mile/syllabus-repo/main/documents.json";
-
-const getProgramsFromApi = async () => {
-  const response = await fetch(DOCUMENTS_URL);
-  const json = await response.json();
-  return json;
-}
+import { downloadProgramFromRepo, getProgramsFromRepo } from '../utils/api';
 
 export default function ProgramSelector() {
   const [loading, setLoading] = React.useState(true);
@@ -24,15 +15,30 @@ export default function ProgramSelector() {
 
   React.useEffect(async () => {
     try {
-      const result = await getProgramsFromApi();
+      const result = await getProgramsFromRepo();
       setPrograms(result);
-      await set('programs', result);
     } catch (e) {
       setError(true);
     } finally {
       setLoading(false);
     }
   }, [])
+
+  const downloadProgram = async (index) => {
+    try {
+      setLoading(true);
+      const results = await downloadProgramFromRepo(index);
+
+    } catch (e) {
+      Alert.alert(
+        "Error downloading the program",
+        "Couldn't download the program subjects! Please try again",
+        [{ text: 'OK' }]
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -47,7 +53,11 @@ export default function ProgramSelector() {
               key={program.title}
               title={program.title}
               subtitle={`${program.courses.length} subjects`}
-              action={<DownloadButton />}
+              action={
+                program.isDownloaded
+                  ? <SyncButton onPress={() => downloadProgram(index)} />
+                  : <DownloadButton onPress={() => downloadProgram(index)} />
+              }
             />
           ))}
         </List>

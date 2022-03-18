@@ -6,5 +6,27 @@ export async function set(key, value) {
 
 export async function get(key) {
   const result = await AsyncStorage.getItem(key);
-  return JSON.parse(result);
+  if (result === null) {
+    return null;
+  } else {
+    return JSON.parse(result);
+  }
+}
+
+export async function isProgramDownloaded(title) {
+  const offlinePrograms = await getAllOfflinePrograms();
+  return title in offlinePrograms;
+}
+
+export async function getAllOfflinePrograms() {
+  const offlinePrograms = await get('offline-programs');
+  if (offlinePrograms === null) {
+    return {}
+  } else {
+    return offlinePrograms;
+  }
+}
+
+export async function setOfflinePrograms(programs) {
+  await set('offline-programs', programs);
 }
