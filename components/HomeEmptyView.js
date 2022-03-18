@@ -7,7 +7,7 @@ export default function HomeEmptyView() {
     <View style={styles.container}>
       <AntDesign name="addfile" size={96} color="#CBCBCB" />
       <Text style={styles.text}>
-        Consider adding courses from our repository
+        Consider adding programs from our repository
       </Text>
       <TouchableOpacity style={styles.button}>
         <Text style={styles.buttonText}>ADD COURSE</Text>

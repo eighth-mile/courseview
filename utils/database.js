@@ -30,3 +30,8 @@ export async function getAllOfflinePrograms() {
 export async function setOfflinePrograms(programs) {
   await set('offline-programs', programs);
 }
+
+export async function getProgram(title) {
+  const offlinePrograms = await getAllOfflinePrograms();
+  return offlinePrograms[title];
+}

@@ -1,10 +1,10 @@
 import { get, set, isProgramDownloaded, getAllOfflinePrograms, setOfflinePrograms } from './database';
 
-const DOCUMENTS_URL = "https://raw.githubusercontent.com/eighth-mile/syllabus-repo/main/documents.json";
+const PROGRAMS_URL = "https://raw.githubusercontent.com/eighth-mile/syllabus-repo/main/programs.json";
 const REPO_URL = "https://raw.githubusercontent.com/eighth-mile/syllabus-repo/main/"
 
 export const getProgramsFromRepo = async () => {
-  const response = await fetch(DOCUMENTS_URL);
+  const response = await fetch(PROGRAMS_URL);
   const programs = await response.json();
 
   for (const [i, program] of programs.entries()) {
@@ -30,7 +30,7 @@ export const downloadFileFromRepo = async (path) => {
 export const downloadProgramFromRepo = async (index) => {
   const programs = await get('programs');
   const program = programs[index];
-  const subjects = program.courses;
+  const subjects = program.subjects;
   const downloadCalls = subjects.map(subject => downloadFileFromRepo(subject.path));
   const subjectContents = await Promise.all(downloadCalls);
 

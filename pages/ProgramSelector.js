@@ -46,13 +46,13 @@ export default function ProgramSelector() {
         <Loading />
       }
       {error ?
-        <Text style={styles.error}>Error occurred while fetching documents!</Text> :
+        <Text style={styles.error}>Error occurred while fetching programs!</Text> :
         <List>
           {programs.map((program, index) => (
             <ListItem
               key={program.title}
               title={program.title}
-              subtitle={`${program.courses.length} subjects`}
+              subtitle={`${program.subjects.length} subjects`}
               action={
                 program.isDownloaded
                   ? <SyncButton onPress={() => downloadProgram(index)} />
